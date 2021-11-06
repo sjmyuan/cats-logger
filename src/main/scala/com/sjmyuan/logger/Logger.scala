@@ -5,7 +5,7 @@ import cats.Monad
 import cats.effect.kernel.Clock
 import java.time.Instant
 import cats.effect.kernel.Sync
-trait Logger[M[_]: Sync, B: Printer[M, _]](implicit clock: Clock[M]) {
+trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
   final def info[A: Formatter[_, B]](
       description: String,
       data: (String, A)
@@ -234,6 +234,6 @@ trait Logger[M[_]: Sync, B: Printer[M, _]](implicit clock: Clock[M]) {
         attrs
       )
     )
-    _ <- Printer[M, B].print(content)
+    _ <- printer.print(content)
   } yield ()
 }
