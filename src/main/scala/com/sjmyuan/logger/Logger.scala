@@ -234,6 +234,6 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
         attrs
       )
     )
-    _ <- printer.print(content)
+    _ <- printer.print(logLevel, content)
   } yield ()
 }
