@@ -7,7 +7,7 @@ import io.circe.syntax._
 import java.time.Instant
 import io.circe.Encoder
 
-class Self4jJsonLogger[M[_]: Sync](implicit clock: Clock[M])
+class Self4jJsonLogger[M[_]: Sync]
     extends Logger[M, Json](new Self4jJsonPrinter[M]) {
 
   def generateContent(
