@@ -1,8 +1,23 @@
-## sbt project compiled with Scala 3
+## Json Logger
 
-### Usage
+This is a Scala library to print the log in Json format
 
-This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
+### Example
 
-For more information on the sbt-dotty plugin, see the
-[scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+```scala
+import com.sjmyuan.logger.SimpleJsonLogger
+import cats.effect.IO
+import cats.effect.IOApp
+
+object App extends IOApp {
+    val logger = new SimpleJsonLogger[IO]()
+
+    val program = for {
+      _ <-logger.warn("This is a json logger")
+      _ <-logger.error("This is a json logger")
+      _ <-logger.info("This is a json logger")
+    } yield()
+
+    program.unsafeRunSync()
+}
+```
