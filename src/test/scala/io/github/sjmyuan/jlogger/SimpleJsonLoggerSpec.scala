@@ -25,17 +25,21 @@ class SimpleJsonLoggerSpec extends munit.FunSuite {
   }
 
   test("can print info log with json format") {
-    logger.info("test the log", "info1" -> 1, "info2" -> (1, 2)).unsafeRunSync()
+    logger
+      .info("test the log", "info1" -> 1, "info2" -> ((1, 2)))
+      .unsafeRunSync()
   }
   test("can print info with same type attribute") {
     logger.info("test the log", "info1" -> 1, "info2" -> 2).unsafeRunSync()
   }
   test("can print warn log with json format") {
-    logger.warn("test the log", "info1" -> 1, "info2" -> (1, 2)).unsafeRunSync()
+    logger
+      .warn("test the log", "info1" -> 1, "info2" -> ((1, 2)))
+      .unsafeRunSync()
   }
   test("can print error log with json format") {
     logger
-      .error("test the log", "info1" -> 1, "info2" -> (1, 2))
+      .error("test the log", "info1" -> 1, "info2" -> ((1, 2)))
       .unsafeRunSync()
   }
 }
