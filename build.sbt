@@ -19,6 +19,7 @@ lazy val root = project
       "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
     ),
     releaseCrossBuild := true,
+    publishTo := sonatypePublishToBundle.value,
     releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
