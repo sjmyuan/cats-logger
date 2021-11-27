@@ -28,6 +28,7 @@ lazy val root = project
       setReleaseVersion,
       commitReleaseVersion,
       tagRelease,
+      releaseStepCommandAndRemaining("+publishSigned"),
       releaseStepCommand("sonatypeBundleRelease"),
       setNextVersion,
       commitNextVersion,
