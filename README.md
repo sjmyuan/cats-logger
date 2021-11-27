@@ -1,11 +1,19 @@
-## Json Logger
+## jlogger
 
-This is a Scala library to print the log in Json format
+This is a Scala library to print the log in JSON format
+
+### Installation
+
+Add the following dependency to you `build.sbt`
+
+```scala
+  libraryDependencies += "io.github.sjmyuan" %% "jlogger" % "0.0.1",
+```
 
 ### Example
 
 ```scala
-import com.sjmyuan.logger.SimpleJsonLogger
+import io.github.sjmyuan.jlogger.SimpleJsonLogger
 import cats.effect.IO
 import cats.effect.IOApp
 

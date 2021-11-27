@@ -1,4 +1,4 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
 import munit.FunSuite
 import cats.effect.IO

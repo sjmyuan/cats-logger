@@ -1,12 +1,12 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
 import cats.implicits._
-import cats.Monad
-import cats.effect.kernel.Clock
 import java.time.Instant
-import cats.effect.kernel.Sync
-trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
-  final def info[A: Formatter[_, B]](
+import cats.effect.{Sync, Clock}
+abstract class Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit
+    clock: Clock[M]
+) {
+  final def info[A: Formatter[*, B]](
       description: String,
       data: (String, A)
   )(implicit stringFormatter: Formatter[String, B]): M[Unit] = log(
@@ -15,7 +15,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A, B].format(data._1, data._2)
   )
 
-  final def info[A1: Formatter[_, B], A2: Formatter[_, B]](
+  final def info[A1: Formatter[*, B], A2: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2)
@@ -26,7 +26,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A2, B].format(data2._1, data2._2)
   )
 
-  final def info[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[_, B]](
+  final def info[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -39,10 +39,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A3, B].format(data3._1, data3._2)
   )
 
-  final def info[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def info[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B]](
+  ], A4: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -57,10 +57,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A4, B].format(data4._1, data4._2)
   )
 
-  final def info[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def info[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B], A5: Formatter[_, B]](
+  ], A4: Formatter[*, B], A5: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -77,7 +77,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A5, B].format(data5._1, data5._2)
   )
 
-  final def warn[A: Formatter[_, B]](
+  final def warn[A: Formatter[*, B]](
       description: String,
       data: (String, A)
   )(implicit stringFormatter: Formatter[String, B]): M[Unit] = log(
@@ -86,7 +86,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A, B].format(data._1, data._2)
   )
 
-  final def warn[A1: Formatter[_, B], A2: Formatter[_, B]](
+  final def warn[A1: Formatter[*, B], A2: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2)
@@ -97,7 +97,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A2, B].format(data2._1, data2._2)
   )
 
-  final def warn[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[_, B]](
+  final def warn[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -110,10 +110,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A3, B].format(data3._1, data3._2)
   )
 
-  final def warn[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def warn[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B]](
+  ], A4: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -128,10 +128,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A4, B].format(data4._1, data4._2)
   )
 
-  final def warn[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def warn[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B], A5: Formatter[_, B]](
+  ], A4: Formatter[*, B], A5: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -148,7 +148,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A5, B].format(data5._1, data5._2)
   )
 
-  final def error[A: Formatter[_, B]](
+  final def error[A: Formatter[*, B]](
       description: String,
       data: (String, A)
   )(implicit stringFormatter: Formatter[String, B]): M[Unit] = log(
@@ -157,7 +157,7 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A, B].format(data._1, data._2)
   )
 
-  final def error[A1: Formatter[_, B], A2: Formatter[_, B]](
+  final def error[A1: Formatter[*, B], A2: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2)
@@ -168,8 +168,8 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A2, B].format(data2._1, data2._2)
   )
 
-  final def error[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def error[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
   ]](
       description: String,
@@ -184,10 +184,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A3, B].format(data3._1, data3._2)
   )
 
-  final def error[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def error[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B]](
+  ], A4: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),
@@ -202,10 +202,10 @@ trait Logger[M[_]: Sync, B](printer: Printer[M, B])(implicit clock: Clock[M]) {
     Formatter[A4, B].format(data4._1, data4._2)
   )
 
-  final def error[A1: Formatter[_, B], A2: Formatter[_, B], A3: Formatter[
-    _,
+  final def error[A1: Formatter[*, B], A2: Formatter[*, B], A3: Formatter[
+    *,
     B
-  ], A4: Formatter[_, B], A5: Formatter[_, B]](
+  ], A4: Formatter[*, B], A5: Formatter[*, B]](
       description: String,
       data1: (String, A1),
       data2: (String, A2),

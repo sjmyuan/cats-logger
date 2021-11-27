@@ -1,4 +1,4 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global

@@ -1,4 +1,4 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
 import io.circe.Json
 import cats.effect.kernel.Sync

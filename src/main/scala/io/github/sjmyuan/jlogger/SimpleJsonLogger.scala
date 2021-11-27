@@ -1,14 +1,12 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
-import cats.effect.kernel.Sync
-import cats.effect.kernel.Clock
+import cats.effect.{Sync}
 import io.circe.Json
 import io.circe.syntax._
 import java.time.Instant
-import io.circe.Encoder
 
-class Self4jJsonLogger[M[_]: Sync]
-    extends Logger[M, Json](new Self4jJsonPrinter[M]) {
+class SimpleJsonLogger[M[_]: Sync]
+    extends Logger[M, Json](new SimpleJsonPrinter[M]) {
 
   def generateContent(
       logLevel: LogLevel,

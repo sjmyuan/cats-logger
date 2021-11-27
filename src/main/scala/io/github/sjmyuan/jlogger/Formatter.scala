@@ -1,4 +1,4 @@
-package com.sjmyuan.logger
+package io.github.sjmyuan.jlogger
 
 import io.circe.Encoder
 import io.circe.Json
