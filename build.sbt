@@ -14,6 +14,7 @@ lazy val root = project
     libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.6" % Test,
     crossScalaVersions := Seq("2.13.5", "2.13.6", "2.13.7"),
     ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org",
+    ThisBuild / versionScheme := Some("semver-spec"),
     addCompilerPlugin(
       "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
     ),
