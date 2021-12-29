@@ -10,6 +10,10 @@ Add the following dependency to you `build.sbt`
   libraryDependencies += "io.github.sjmyuan" %% "jlogger" % "0.0.1",
 ```
 
+### UML
+
+![](./docs/classes.png)
+
 ### Example
 
 ```scala
