@@ -4,7 +4,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "jlogger",
-    version := "0.0.1",
+    version := "0.0.2",
     organization := "io.github.sjmyuan",
     scalaVersion := "2.13.7",
     libraryDependencies += "org.typelevel" %% "cats-effect" % "3.2.9",
