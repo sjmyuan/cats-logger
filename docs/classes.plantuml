@@ -1,0 +1,34 @@
+@startuml
+enum LogLevel {
+    INFO
+    WARNING
+    ERROR
+}
+
+interface Formatter {
+  def format(key: String, value: A): B
+}
+
+class JsonFormatter {
+  def format(key: String, value: A): Json 
+}
+
+abstract class JLogger {
+  def log(logLevel: LogLevel, attrs: B): M[Unit]
+}
+
+class Self4jJsonLogger {
+  def log(logLevel: LogLevel, attrs: Json): M[Unit]
+}
+
+class SimpleJsonLogger {
+  def log(logLevel: LogLevel, attrs: Json): M[Unit]
+}
+
+JLogger <|-- Self4jJsonLogger
+JLogger <|-- SimpleJsonLogger
+JLogger <.. LogLevel:Use
+JLogger <.. Formatter:Use
+
+Formatter <|-- JsonFormatter
+@enduml
