@@ -1,0 +1,49 @@
+@startuml
+enum LogLevel {
+    INFO
+    WARNING
+    ERROR
+}
+
+interface Formatter {
+  def format(key: String, value: A): B
+}
+
+class JsonFormatter {
+  def format(key: String, value: A): Json 
+}
+
+abstract class JLogger {
+  final def info(description: String, data: (String, A)): M[Unit]
+  final def info(description: String, data1: (String, A1), data2: (String, A2)): M[Unit]
+  final def info(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3)): M[Unit]
+  final def info(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4)): M[Unit]
+  final def info(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4), data5: (String, A5)): M[Unit]
+  final def warn(description: String, data: (String, A)): M[Unit]
+  final def warn(description: String, data1: (String, A1), data2: (String, A2)): M[Unit]
+  final def warn(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3)): M[Unit]
+  final def warn(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4)): M[Unit]
+  final def warn(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4), data5: (String, A5)): M[Unit]
+  final def error(description: String, data: (String, A)): M[Unit]
+  final def error(description: String, data1: (String, A1), data2: (String, A2)): M[Unit]
+  final def error(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3)): M[Unit]
+  final def error(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4)): M[Unit]
+  final def error(description: String, data1: (String, A1), data2: (String, A2), data3: (String, A3), data4: (String, A4), data5: (String, A5)): M[Unit]
+  def log(logLevel: LogLevel, attrs: B): M[Unit]
+}
+
+class Self4jJsonLogger {
+  def log(logLevel: LogLevel, attrs: Json): M[Unit]
+}
+
+class SimpleJsonLogger {
+  def log(logLevel: LogLevel, attrs: Json): M[Unit]
+}
+
+JLogger <|-- Self4jJsonLogger
+JLogger <|-- SimpleJsonLogger
+JLogger ..> LogLevel:Use
+JLogger ..> Formatter:Use
+
+Formatter <|-- JsonFormatter
+@enduml

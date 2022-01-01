@@ -1,22 +1,14 @@
 package io.github.sjmyuan.jlogger
 
 import cats.effect.{Sync}
+import cats.implicits._
 import io.circe.Json
-import io.circe.syntax._
-import java.time.Instant
+import JsonInstances._
 
-class SimpleJsonLogger[M[_]: Sync]
-    extends Logger[M, Json](new SimpleJsonPrinter[M]) {
+class SimpleJsonLogger[M[_]: Sync] extends JLogger[M, Json] {
 
-  def generateContent(
-      logLevel: LogLevel,
-      now: Instant,
-      attrs: Seq[Json]
-  ): Json =
-    attrs.foldLeft(
-      Json.obj(
-        "level" -> logLevel.toString.asJson,
-        "time" -> now.asJson
-      )
-    )((acc, ele) => acc.deepMerge(ele))
+  override final def log(logLevel: LogLevel, attrs: Json): M[Unit] = for {
+    _ <- Sync[M].delay(println(attrs.noSpaces))
+  } yield ()
+
 }
